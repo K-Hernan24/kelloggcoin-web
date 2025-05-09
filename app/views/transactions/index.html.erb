@@ -2,21 +2,54 @@
 
 <!-- Step 1: List all transactions, starting with the ICO -->
 
-<%
-transactions = Transaction.all
-for record in transactions
-  from_user_name = User.find_by({"id"=>record["from_user_id"]})["name"]
-  to_user_name = User.find_by({"id"=>record["to_user_id"]})["name"]
-  if from_user_name != nil
-    amount = record["amount"]
-    transaction_number = record["id"]
-    p "Transaction #{transaction_number}: #{amount} from #{from_user_name} to #{to_user_name}"
-  end
-end
-%>
+<h2> List of Transactions </h2>
 
+<% transactions = Transaction.all %>
+<% for record in transactions %>
+<%     from_user = User.find_by({"id" => record["from_user_id"]}) %>
+<%     to_user = User.find_by({"id"=> record["to_user_id"]})%>
+<%     amount = record["amount"] %> 
+<%     transaction_number = record["id"]  %>    
+<%     if from_user != nil %>
+<ol>      Transaction # <%= transaction_number %>: <%= amount %> From <%= from_user["name"] %> to <%= to_user["name"]%>      </ol>  
+      <% else %>
+<ol>      Initial coin offering: <%=amount%> to <%= to_user["name"]%>  </ol>    
+      <% end %>
+<% end %>
 
 <!-- Step 2: Calculate and display the balances -->
+
+<h2>Kellogg Coin Balances</h2>
+
+<!-- Obtain all the users we are going to do this for from the database-->
+<!-- 
+<% users = User.all%>
+<% balances = [] %>
+
+<% for user in users %>
+<%    money_in = 0 %>
+<%    money_out = 0 %>
+<%    for record in transactions %>
+<%       from_user = User.find_by({"id":record["from_user_id"]}) %>
+<%       to_user = User.find_by({"id":record["to_user_id"]}) %>
+<%       amount = record["amount"]  %>
+<p> We are here!</p>
+<%       if from_user["name"] != nil && from_user["name"] == user["name"]  %>
+<%           money_out -= amount %>
+<%       elsif to_user["name"] == user["name"] && from_user["name"] != nil %>
+<%           money_in = money_in + amount %>
+<%       end%>  
+<%    end%>
+<% end %>
+<% balance = money_in - money_out%>
+<li> <%=user %> balance is <%=balance %></li>
+<% end%>
+
+<% for balance in balances%>
+  <%= balance%>
+<% end%>
+
+-->
 
 <!-- 
 Expected balances:
