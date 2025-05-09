@@ -1,0 +1,18 @@
+<h1> Bitcoin to USD conversion </h1>
+<% 
+bitcoin = 0.25
+require "net/http"
+require "json"
+url = "https://blockchain.info/ticker"
+uri = URI(url)
+response = Net::HTTP.get(uri)
+bitcoin_data = JSON.parse(response)
+usd_rate = bitcoin_data["USD"]["last"]
+usd_value = usd_rate * bitcoin
+%>
+
+<p>You have <%=bitcoin %> Bitcoin</p>
+<p>1 Bitcoin is valued at $<%=usd_rate%> USD</p>
+<p>Your Bitcoin is worth $<%=usd_value%></p>
+
+
