@@ -33,11 +33,11 @@
 <%       amount = record["amount"]  %>
 <%       if from_user != nil && from_user["name"] == user["name"]  %>
 <%           money_out -= amount %>
-<%       elsif to_user["name"] == user["name"] && from_user != nil %>
+<%       elsif to_user["name"] == user["name"] %>
 <%           money_in += amount %>
-<%       end%>  
-<%    end%>
+<%       end%> 
 <% balance = money_in - money_out%>
+<%    end%>
 <p> <%=user["name"] %> balance is <%= balance %></p>
 <% end %>
 
