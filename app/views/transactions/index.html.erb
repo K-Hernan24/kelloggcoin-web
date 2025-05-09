@@ -2,6 +2,20 @@
 
 <!-- Step 1: List all transactions, starting with the ICO -->
 
+<%
+transactions = Transaction.all
+for record in transactions
+  from_user_name = User.find_by({"id"=>record["from_user_id"]})["name"]
+  to_user_name = User.find_by({"id"=>record["to_user_id"]})["name"]
+  if from_user_name != nil
+    amount = record["amount"]
+    transaction_number = record["id"]
+    p "Transaction #{transaction_number}: #{amount} from #{from_user_name} to #{to_user_name}"
+  end
+end
+%>
+
+
 <!-- Step 2: Calculate and display the balances -->
 
 <!-- 
